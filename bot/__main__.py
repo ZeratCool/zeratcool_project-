@@ -21,7 +21,7 @@ from command import media_path_1, media_path_2, media_path_3, video_path_1, vide
 
 def setup_env():
     from dotenv import load_dotenv
-    dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+    dotenv_path = os.path.join(os.path.dirname(__file__), '../.env')
     if os.path.exists(dotenv_path):
         load_dotenv(dotenv_path)
 setup_env()
