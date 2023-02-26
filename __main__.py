@@ -51,11 +51,11 @@ async def on_startup(dp):
         global db_pool
         db_pool = await asyncpg.create_pool(
 
-            port=os.getenv('port'),
-            host='localhost',
-            user=os.getenv(''),
-            password=os.getenv('password'),
-            database=os.getenv('db'),
+            port=int(os.getenv('POSTGRES_PORT') or 0),
+            host=os.getenv('POSTGRES_HOST'),
+            user=os.getenv('POSTGRES_USER'),
+            password=os.getenv('POSTGRES_PASSWORD'),
+            database=os.getenv('POSTGRES_DB')
         )
 
         async with db_pool.acquire() as con:
