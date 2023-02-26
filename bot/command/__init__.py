@@ -1,4 +1,7 @@
-__all__ = ['text_buttons', 'media_path_1', 'media_path_2', 'media_path_3', 'video_path_1', 'video_path_2']
+__all__ = ['text_buttons', 'media_path_1', 'media_path_2', 'media_path_3', 'video_path_1', 'video_path_2', 'Bottons']
+
+from bot.command.text_buttons import Bottons
+
 
 media_path_1 = "media/photo/photo_1.jpg"
 video_path_1 = "media/video/video_1.mp4"

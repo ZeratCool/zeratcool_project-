@@ -6,13 +6,13 @@ import pathlib
 import aiogram.utils.markdown as md
 import asyncpg
 from aiogram import Bot, Dispatcher, executor, types
-from aiogram.contrib.fsm_storage.redis import RedisStorage
 from aiogram.types import Message
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aioredis import Redis
 
-from command.text_buttons import Bottons
-from command import media_path_1, media_path_2, media_path_3, video_path_1, video_path_2
+from bot.command import Bottons
+
+from bot.command import media_path_1, media_path_2, media_path_3, video_path_1, video_path_2
 
 
 
@@ -28,16 +28,9 @@ setup_env()
 
 API_TOKEN = os.getenv('BOT_TOKEN')
 
-redis = Redis(
-    host=os.getenv('REDIS_HOST') or '127.0.0.1',
-    password=os.getenv('REDIS_PASSWORD') or None,
-    username=os.getenv('REDIS_USER') or None,
-
-)
-
 
 bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot, storage=RedisStorage(redis=redis))
+dp = Dispatcher(bot, storage=MemoryStorage())
 
 
 # redis = Redis()
