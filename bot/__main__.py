@@ -8,7 +8,7 @@ import asyncpg
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import Message
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aioredis import Redis
+# from aioredis import Redis
 
 from bot.command import Bottons
 
@@ -27,7 +27,7 @@ def setup_env():
 setup_env()
 
 API_TOKEN = os.getenv('BOT_TOKEN')
-
+ID_USER = int(os.getenv('user_id_'))
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -40,7 +40,6 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 async def on_startup(dp):
     try:
-
         global db_pool
         db_pool = await asyncpg.create_pool(
 
@@ -134,7 +133,7 @@ async def cmd_start(message: types.Message):
 @dp.message_handler(commands=['sendall'])
 async def start(message: types.Message):
     if message.chat.type == 'private':
-        if message.from_user.id == 5175202057:
+        if message.from_user.id == ID_USER:
             text = message.text[9:]
 
             async with db_pool.acquire() as conn:
