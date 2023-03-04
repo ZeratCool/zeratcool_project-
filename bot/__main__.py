@@ -192,5 +192,6 @@ def start_bot():
     except (KeyboardInterrupt, SystemExit):
         logger.info('Bot stopped')
 
+
 if __name__ == '__main__':
     start_bot()
