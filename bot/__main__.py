@@ -10,13 +10,7 @@ from aiogram.types import Message
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 # from aioredis import Redis
 
-from bot.command import Bottons
-
-from bot.command import media_path_1, media_path_2, media_path_3, video_path_1, video_path_2
-
-
-
-
+from bot.command import media_path_1, media_path_2, media_path_3, video_path_1, video_path_2, Bottons
 
 
 def setup_env():
@@ -104,11 +98,6 @@ async def on_startup(dp):
 # Start the background task to delete inactive users
     asyncio.create_task(delete_inactive_users_task())
 
-async def get_active_users():
-    async with db_pool.acquire() as con:
-        rows = await con.fetch('SELECT user_id FROM users WHERE active = $1', True)
-        return [row[0] for row in rows]
-
 @dp.message_handler(commands='start')
 async def cmd_start(message: types.Message):
     """
@@ -137,7 +126,7 @@ async def start(message: types.Message):
             text = message.text[9:]
 
             async with db_pool.acquire() as conn:
-                active_count = await get_active_users()
+                active_count = await conn.fetchval('SELECT COUNT(*) FROM users WHERE active = $1', True)
 
                 async with conn.transaction():
                     # Get all users from the database
@@ -194,10 +183,8 @@ async def process_callback_continue(callback_query: types.CallbackQuery):
     await asyncio.sleep(1)  # Introduse a 1 second delay
 
     # ====================== Pooling bot===========================
-
+logger = logging.getLogger(__name__)
 def start_bot():
-
-    logger = logging.getLogger(__name__)
     try:
 
         executor.start_polling(dp, on_startup=on_startup)
