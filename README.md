@@ -2,7 +2,27 @@
 
 This is a Telegram bot built using the Aiogram 2.x framework to interact with the Telegram API and integrate with a PostgreSQL database for storing user information
 
+### Add data to .env file:
+```
+BOT_TOKEN=
 
+debug=
+
+POSTGRES_DB=
+
+POSTGRES_USER=
+POSTGRES_HOST=
+POSTGRES_PASSWORD=
+
+POSTGRES_PORT=
+
+user_id_=
+
+PG_DATA=
+
+
+REDIS_HOST= 
+```
 ## Installing Dependencies
 
 
